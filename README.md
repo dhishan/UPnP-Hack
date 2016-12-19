@@ -230,7 +230,9 @@ From the research above, Here are some of the things to check for securing your 
 
 **UPnP Protocol:**
 [UPnP Intro]: https://dangfan.me/en/posts/upnp-intro "UPnP Working"
-[UPnP Device Architecture](http://upnp.org/specs/arch/UPnP-arch-DeviceArchitecture-v1.1.pdf) **UPnP as Botnets:**
+[UPnP Device Architecture](http://upnp.org/specs/arch/UPnP-arch-DeviceArchitecture-v1.1.pdf) 
+
+**UPnP as Botnets:**
 [Akamai Research](https://www.akamai.com/uk/en/multimedia/documents/state-of-the-internet/ssdp-reflection-ddos-attacks-threat-advisory.pdf)
 [UPnP DDoS](http://resources.infosecinstitute.com/ddos-upnp-devices/)
 [SSDP DDoS](https://blog.sucuri.net/2014/09/quick-analysis-of-a-ddos-attack-using-ssdp.html)
@@ -238,8 +240,12 @@ From the research above, Here are some of the things to check for securing your 
 **UPnP to punch hole in Firewall:**
 
 [Universal Plug and Play: Dead simple or simply deadly?](http://www.upnp-hacks.org/sane2006-paper.pdf)
+
 [upnp-hacks](http://www.upnp-hacks.org/igd.html)
+
 [UpnpPunch](https://github.com/sirMackk/ZeroNet/blob/upnp_punch_squashed/src/util/UpnpPunch.py)
-[UPnP and Python](http://mattscodecave.com/posts/using-python-and-upnp-to-forward-a-port.html) [Git Hub Repo](https://github.com/dhishan/UPnP-Hack)
+
+[UPnP and Python](http://mattscodecave.com/posts/using-python-and-upnp-to-forward-a-port.html) 
+[Git Hub Repo](https://github.com/dhishan/UPnP-Hack)
 
 
