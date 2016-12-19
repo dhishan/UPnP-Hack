@@ -233,6 +233,7 @@ From the research above, Here are some of the things to check for securing your 
 [UPnP Device Architecture](http://upnp.org/specs/arch/UPnP-arch-DeviceArchitecture-v1.1.pdf) 
 
 **UPnP as Botnets:**
+
 [Akamai Research](https://www.akamai.com/uk/en/multimedia/documents/state-of-the-internet/ssdp-reflection-ddos-attacks-threat-advisory.pdf)
 [UPnP DDoS](http://resources.infosecinstitute.com/ddos-upnp-devices/)
 [SSDP DDoS](https://blog.sucuri.net/2014/09/quick-analysis-of-a-ddos-attack-using-ssdp.html)
