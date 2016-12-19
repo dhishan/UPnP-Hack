@@ -207,17 +207,26 @@ From the research above, Here are some of the things to check for securing your 
 **References:**
 **WEP:**
 [IEEE Std 802.11-2007](http://standards.ieee.org/getieee802/download/802.11-2007.pdf)
+
 [Security of the WEP algorithm](http://www.isaac.cs.berkeley.edu/isaac/wep-faq.html)
 
+
 **WPA/WPA2:**
+
 [PSK  Hacking](http://www.og150.com/assets/Wireless%20Pre-Shared%20Key%20Cracking%20WPA,%20WPA2.pdf)
+
 [Breaking TKIP](http://dl.aircrack-ng.org/breakingwepandwpa.pdf)
+
 [Understanding WPA crack](http://arstechnica.com/security/2008/11/wpa-cracked/)
+
 
 **DNS Attacks:**
 [Tale of One Thousand and One DSL modems](https://securelist.com/analysis/publications/57776/the-tale-of-one-thousand-and-one-dsl-modems/)
+
 [Comtrend ADSL Router CT-5367 C01_R12 - Remote Root Exploit](https://www.exploit-db.com/exploits/16275/)
+
 [Exploiting CSRF vulnerability](http://www.wizcrafts.net/blogs/2008/01/hackers_exploit_vulnerability_in_2wire_modem.html)
+
 [National Vulnerability Database](https://web.nvd.nist.gov/view/vuln/detail?vulnId=CVE-2007-4389)
 
 **Binary Malware:**
@@ -225,18 +234,26 @@ From the research above, Here are some of the things to check for securing your 
 
 **SNMP:**
 [SNMP DDOS Attacks](https://www.bitag.org/report-snmp-ddos-attacks.php)
+
 [Multiple Vulnerabilities in SNMP](http://www.ists.dartmouth.edu/library/9.pdf)
+
 [SANS]: https://www.sans.org/security-resources/idfaq/using-snmp-for-reconnaissance/9/11 "Using SNMP for Reconnaissance"
+
 
 **UPnP Protocol:**
 [UPnP Intro]: https://dangfan.me/en/posts/upnp-intro "UPnP Working"
+
 [UPnP Device Architecture](http://upnp.org/specs/arch/UPnP-arch-DeviceArchitecture-v1.1.pdf) 
+
 
 **UPnP as Botnets:**
 
 [Akamai Research](https://www.akamai.com/uk/en/multimedia/documents/state-of-the-internet/ssdp-reflection-ddos-attacks-threat-advisory.pdf)
+
 [UPnP DDoS](http://resources.infosecinstitute.com/ddos-upnp-devices/)
+
 [SSDP DDoS](https://blog.sucuri.net/2014/09/quick-analysis-of-a-ddos-attack-using-ssdp.html)
+
 
 **UPnP to punch hole in Firewall:**
 
