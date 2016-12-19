@@ -1,23 +1,24 @@
 
+
 # Securing Wi-Fi Worldwide
 -----------------
-"Securing the Wi-Fi Access points/Routers from malware"
+"Securing the Wi-Fi Access Points/Routers from malware."
 
 ---------------------------------------------------------------------------------------
 > NYU
->  Dhishan Amaranath
+> Dhishan Amaranath
 > N16909360
 
 > Guide: Thomas Reddington
 
 ## Abstract
-Today every house and almost every public area are provided with wireless connectivity constituting of millions of wireless access points and routers throughout the world. Given the wide usage and minimal knowledge of these devices among the users, it is increasingly becoming a target for attackers. This paper outlines the security vulnerabilities, Attack vectors and Attack surfaces of everyday used wireless network devices, especially Wireless Access points and routers that allow Wi-Fi compliant device to connect to a wired network. This research tries to dissect the devices that provide connectivity into layers and with examples provides a brief description of each layer and security flaws associated with it. I have also provided an example of an UPnP exploit at the end of the paper. 
+Today every house and almost every public area are provided with wireless connectivity constituting of millions of wireless access points and routers throughout the world. Given the wide usage and minimal knowledge of these devices among the users, it is increasingly becoming a target for attackers. This paper outlines the security vulnerabilities, Attack vectors and Attack surfaces of everyday used wireless network devices, especially Wireless Access points and routers that allow Wi-Fi compliant device to connect to a wired network. This research tries to dissect the devices that provide connectivity into layers and with examples provides a brief description of each layer and security flaws associated with it. I have also provided an example of a UPnP exploit at the end of the paper. 
 
 ## Layers providing Wireless connectivity
 ![](https://i.imgur.com/NoNziQM.jpg)
 
 ## Attacking Access Points
-Access points are network devices working at Ethernet layer in the OSI stack. The security at this layer is two fold, authenticating the users and encrypting the data at this layer. By encryption It turns clear text data into secret code. Authentication provides Wi-Fi connectivity to only authorized users. There are mainly two major types of security at this layer. 
+Access points are network devices working at Ethernet layer in the OSI stack. The security at this layer is two-fold, authenticating the users and encrypting the data at this layer. By encryption, It turns clear text data into secret code. Authentication provides Wi-Fi connectivity to only authorized users. There are mainly two major types of security at this layer. 
 
 ### WEP Cracking
 As with any encryption, it needs keys for encrypting data. WEP uses a symmetric stream cipher algorithm called RC4. For any stream cipher, the key has to change for every packet; this randomness is provided by an IV(Initialization Vector) a 24 bit key sent in clear text in the 802.11 headers. So for WEP, the key for encryption is the 24 bits of IV from the header concatenated with the known authentication key. Consider for example WEP-64, and here the 24 bits are the IV from the packet header and the 40 bits from the known key. Since the known key is the password of the network which the user enters for authentication, it is in ASCII. Each ASCII being a byte, the 40 bits are five characters. And then again a byte of each ASCII are limited to in the range of printable characters. As for the IV, there is a 50% chance of it repeating every 5000 packets because of the mere 24 bits.
@@ -27,30 +28,30 @@ Given the weak security of the WEP encryption, It is straightly easy to crack an
 To sum it up, WEP is merely a security measure.
 
 ### WPA/WPA2 Cracking
-After the discovery of WEP vulnerability, the `802.11i` protocol was announced with advanced security measures. The successor of WEP was WPA and its successor a year later WPA2. WPA and WPA2 differ in their encryption algorithms. WPA uses TKIP a more secure version of RC4 to keep it close to its predecessor. While, WPA2 uses AES, which is both computationally intensive and more secure. WPA/WPA2 both come with two different flavors, Personal and Enterprise. Even though both maintain the same set of encryption, they both differ in their authentication methods. WPA-Personal uses a pre-shared key mechanism whereas WPA-Enterprise needs a seperate authentication server to provide authentication.
+After the discovery of WEP vulnerability, the `802.11i` protocol was announced with advanced security measures. The successor of WEP was WPA and its successor a year later WPA2. WPA and WPA2 differ in their encryption algorithms. WPA uses TKIP a more secure version of RC4 to keep it close to its predecessor. While, WPA2 uses AES, which is both computationally intensive and more secure. WPA/WPA2 both come with two different flavors, Personal and Enterprise. Even though both maintain the same set of encryption, they both differ in their authentication methods. WPA-Personal uses a pre-shared key mechanism whereas WPA-Enterprise needs a separate authentication server to provide authentication.
 
 #### Cracking Authentication
 ##### PSK - WPA/WPA2 Personal
-So far the known method of cracking authentication is by de-authenticating an existing user and capturing the handshaking messages and using the brute force password dictionary to guess the correct passphrasee
+So far the known method of cracking authentication is by de-authenticating an existing user and capturing the handshaking messages and using the brute force password dictionary to guess the correct passphrase
 
 ##### PSK - WPA/WPA2 Enterprise
 The authentication here is provided by the authentication server behind the access point and are relatively more secure than its Personal flavor. The access points use `Port-Based Access Control` to control the connectivity to the endpoint. Communication between the AP and the authentication server are made using `802.1x EAP` (Extensible Authentication Protocol) and its variants like PEAP, LEAP, TLS, etc. The breaking at this layer is mostly done by social engineering or breaking into the database of the enterprise. Not the scope of this paper
 
 #### Breaking Encryption
-As mentioned earlier, the Encryption of WPA is done using TKIP where TKIP uses session based and longer keys making it harder for the attacker. But knowing the common types of packets like ARP and its common contents, there are instances where encryption is broken in a couple of minutes. The encryption of WPA2, the lesser of the evils, is AES, which is relatively hard and very CPU and time-intensive to break. This is among the known and most secure which is currently recommended for use.
+As mentioned earlier, the Encryption of WPA is done using TKIP where TKIP uses session based and longer keys making it harder for the attacker. But knowing the common types of packets like ARP and its general contents, there are instances where encryption is broken in a couple of minutes. The encryption of WPA2, the lesser of the evils, is AES, which is relatively hard and very CPU and time-intensive to break. This is the well-known and most secure encryption recommended for use.
 
 ### WPS
- WPS was invented to make the process of connecting to Access points hassle free. To connect using WPS, you need to enter the eight digit pin dedicated to the access point.
+WPS was invented to make the process of connecting to Access points hassle free. To connect using WPS, you need to enter the eight digit pin dedicated to the access point.
 
 #### Security of WPS
-The last digit of the 8 digits of WPS PIN is a check digit, computed from the first seven bits. So reducing the actual pin to 7 digits. The authentication that the user knows the pin is done in two stages, The first 4 bits and then the second half. This reduces the complexity of cracking the pin to as simple as cracking a 4 digit pin and then a 3 digit pin. The complexity reduced from 10^8^ to 10^4^  + 10^3^.
+The last digit of the 8 digits of WPS PIN is a check digit, computed from the first seven bits. So reducing the original pin to 7 digits. The authentication that the user knows the pin is done in two stages, The first 4 bits and then the second half. This reduces the complexity of cracking the pin to as simple as cracking a 4 digit pin and then a 3 digit pin. The complexity reduced from 10^8^ to 10^4^ + 10^3^.
 
 Also, many manufacturers, calculate the pin from MAC address or serial number, both of which can be obtained easily, thereby making the whole WPS vulnerable.
 The presence of WPS blows any security offered by the WPA out of the water. 
 
 ## Attacking Router Layer
 
-In the traditional sense, the functionality of router is routing the packets among the networks. The security threat at this layer is due to the additional functionality the routers provide. In addition to providing routing, the routers provide configurations such as default DNS server addresses to the devices connecting to it. DNS server maps name to the server IP location. A malicious DNS server can navigate the victims to phising sites and exploit users.
+In the traditional sense, the functionality of router is routing the packets among the networks. The security threat at this layer is due to the additional functionality the routers provide. In addition to providing routing, the routers provide configurations such as default DNS server addresses to the devices connecting to it. DNS server maps name to the server IP location. A malicious DNS server can navigate the victims to phishing sites and exploit users.
 
 _**An simple example:**_ A hacker can create a replica of a legitimate mail login wherein he records the user's credentials and then navigate the user to the real website. We as human beings with feeble memory to remember all passwords are highly inclined to reuse them in various sites. With such credentials in the hands of an attacker, the possibilities of the exploit are infinite.
 
@@ -58,12 +59,12 @@ _**An simple example:**_ A hacker can create a replica of a legitimate mail logi
 _**Tale of One Thousand and One DSL modems:**_
 **Vulnerability:** The attacker can access the admin panel & change default system password without authentication and verification
 **Affected Device:** _COMTREND ADSL Router BTC(VivaCom) CT-5367 C01_R12_
-**Exploit:** Change DNS & Password Settings of the DSL modems. The victims are navigated to malicious DNS servers. These DNS servers navigate the victims into fake bank sites and get user credentials. Other attackers used this to insert malicious softwares on to the victims computers by popping up to install plugins
+**Exploit:** Change DNS & Password Settings of the DSL modems. The victims are navigated to malicious DNS servers. These DNS servers navigate the victims into fake bank sites and get user credentials. Other attackers used this to insert malicious software onto the victim's computers by popping up to install plugins
 
 _**Drive by Pharming:**_
 > CSRF attack used against routers to change their DNS settings
 
-**Vulnerability:** It is possible to send a request to the router that will modify its configuration. It does not validate POST, or Referrer or Anything unless the administrator password has been set by the customer
+**Vulnerability:** It is possible to send a request to the router that will modify its configuration. It does not validate POST, or Referrer or Anything unless the customer has set the administrator password
 **Affected Device:** 2wire modem/router models 1701HG, 1800HW, and 2071, with 3.17.5, 3.7.1, and 5.29.51 software
 **Exploit:** Change the IP association of the www.banamex.com URL to a malicious address in the Local DNS server of the router. This is done by a spam email where the image tag is a request to the router interface to change the Local DNS settings. Thus when the user typed in the address of the bank, is redirected to a phishing site.
 **_Example:_**
@@ -71,8 +72,8 @@ _**Drive by Pharming:**_
 <img src="http://192.168.0.1/cgi?uname=admin&passwd=admin&dns_new=x.x.x.x"></img>
 ```
 
-### Binary Malware in Linux Based routers
-Today's routers are not just a chip designed to do only specific routing tasks. They are capable of running mini Linux os. Such a flexibility also gives more power to hackers. So far there has been only one major binary malware target to on MIPS based Linux routers.
+### Binary Malware in Linux Based Routers
+Today's routers are not just a chip designed to do only specific routing tasks. They are capable of running mini Linux os. Such a flexibility also gives more power to hackers. So far there has been only one significant binary malware target to on MIPS-based Linux routers.
 
 _**Psyb0t**_: `pysbot` is a binary malware which is designed to run on the MIPS-based Linux routers. The malware is designed to self-proliferate and capable of acting based on the commands from an IRC channel. This malware is capable of initiating DDoS attacks, executing shell commands, search and attack servers running FTP, SQL, SMB shares, etc.. The proliferation was possible because of default passwords and due to the open of unnecessary ports in the target.
 
@@ -82,9 +83,9 @@ Mode of entry in most cases was through SSH or Telnet or sometimes through Web i
 
 ## Attacks related to Modems
 
-Modems are devices working at the physical layer. These devices convert digital signals into electrical signals for transportation. From the perspective of wireless internet or Wi-Fi, Modems are end devices and are usually connected to routers and act as Internet Gateway Device(IGD). The security of modems per se is basically the safety of the router to which modem is immediately connected to. Modern days ISP's provides a single device which constitutes modems and routers and many times even access points in a single device.
+Modems are devices working at the physical layer. These devices convert digital signals into electrical signals for transportation. From the perspective of wireless internet or Wi-Fi, Modems are end devices and are usually connected to routers and act as Internet Gateway Device(IGD). The security of modems per se is the safety of the router to which modem is immediately connected to. Modern days ISP's provides a single device which constitutes modems and routers and many times even access points in a single appliance.
 
-IGD's are the single point for any network for access to outside world, In other words, are the devices which connect local hosts to the internet. IGD provide various functionality like firewalls, DHCP control, remote management, NTP to name a few.
+IGD's are the single point for any network for access to outside world, In other words, are the devices which connect local hosts to the Internet. IGD provide various functionality like firewalls, DHCP control, remote management, NTP to name a few.
 
 Access to such devices and Wi-Fi access points, in general, is provided through the Web interface, UPnP, SNMP and various services like Telnet, SSH, etc. For the purpose of this paper, I will explain how this can be a leveraged as an attack surface and demonstrate an exploit.
 
@@ -93,18 +94,18 @@ Definition of SNMP by [SANS]:"The Simple Network Management Protocol, SNMP, is a
 
 #### SNMP Reflection Attack
 
-**Attack:** SNMP reflection, like other reflection attacks, involves eliciting a flood of responses to a single spoofed IP address. During an SNMP reflection attack, the attacker sends out a large number of SNMP queries with a spoofed IP address to numerous devices that, in turn, reply to that victim (spoofed) address. The attack volume grows as more and more devices continue to reply until the target network is brought down under the collective volume of these SNMP responses.
+**Attack:** SNMP reflection, like other reflection attacks, involves eliciting a flood of responses to a single spoofed IP address. During an SNMP reflection attack, the attacker sends out a large number of SNMP queries with a spoofed IP address to many devices that, in turn, reply to that victim (spoofed) address. The attack volume grows as more and more devices continue to respond until the target network is brought down under the cumulative amount of these SNMP responses.
 
-**Affected Devices:** Most of the devices susceptible to this attack are ISP managed devices, As these devices are poorly managed and the users are unaware of this.
+**Affected Devices:** Most of the devices susceptible to this attack are ISP managed devices, As these devices are poorly maintained, and the users are unaware of this.
 
 ### UPnP:
-Universal Plug and Play(UPnP) a relatively new set of networking protocol which has been in rise lately. The protocol was introduced by Microsoft to promote plug and play features for devices capable of networking. As with most protocols, UPnP was not designed with security in the mindset. Though there are very few notable UPnP attacks, with its increasing popularity, it's no doubt that a large-scale UPnP attack is _"down the pike."_ The irony is, even the newer versions of UPnP has very minimal security in its core.
+Universal Plug and Play(UPnP) a relatively new set of networking protocol which has been in rising lately. The protocol was introduced by Microsoft to promote plug and play features for devices capable of networking. As with most protocols, UPnP was not designed with security in the mindset. Though there are very few notable UPnP attacks, with its increasing popularity, it's no doubt that a large-scale UPnP attack is _"down the pike."_ The irony is, even the newer versions of UPnP has very minimal security at its core.
 Before I introduce how UPnP can be abused, I will take a minute to describe the basics of UPnP. Here is the brief description of UPnP Architecture. Shamelessly copied from [UPnP Intro]
 
 > UPnP is composed of several steps, including discovery, description, control, eventing, and presentation.
->- **Discovery:** during this step, service providers (called 'devices') and service users (called 'control points') discover each other.
+>- **Discovery:** during this phase, service providers (called 'devices') and service users (called 'control points') discover each other.
 >- **Description:** devices use XML to describe their information and services before being used. >- Control: control points use SOAP to control devices.
->- **Eventing:** subscribers will be informed when devices' states change. 
+>- **Eventing:** Subscribers will be informed when devices' states change. 
 >- **Presentation:** devices can use browsers to present themselves.
 
 #### UPnP devices as DDoS Botnets:
@@ -140,7 +141,7 @@ The main security risk from UPnP is when the Router having the UPnP feature is a
 This is allowed because the UPnP server doesn't validate the IP address of the requester with that of the request. I was able to exploit this vulnerability by writing few lines of python code using scapy.
 
 ##### Step 1: UPnP Discovery:
-An SSDP discovery message broadcasted over an Multicast address:
+An SSDP discovery message broadcasted over a Multicast address:
 
 **Request:**
 ![SSDP Request](https://i.imgur.com/uSR5MoM.png)
@@ -150,7 +151,7 @@ The UPnP devices identify themselves by sending an unicast response to my addres
 With HTTP libraries in Python, I was able to get the XML files from both the locations and parse for the UPnP device which has IGD profile.
 ![SSDP description file](https://i.imgur.com/06NB8qb.png)
 
-**_A little about UPnP schemas:_** The UPnP forum define the UPnP template for various profiles. InternetGatewayDevice:1/2 is one of such template. The Document can be obtained [here](http://upnp.org/specs/gw/UPnP-gw-InternetGatewayDevice-v2-Device.pdf). The IGD Schemas of interest here provide options to open ports, set/get connection types, get external IP, DNS settings, etc.
+**_A little about UPnP schemas:_** The UPnP Forum defines the UPnP template for various profiles. InternetGatewayDevice:1/2 is one of such template. The Document can be obtained [here](http://upnp.org/specs/gw/UPnP-gw-InternetGatewayDevice-v2-Device.pdf). The IGD Schemas of interest here provide options to open ports, set/get connection types, get external IP, DNS settings, etc.
 
 ##### Step 2: Description:
 The port opening part that I was concerned above was service profile under `WANIPConnection:1`. I was able to extract the `<SCPDURL>` which points to the XML location of this profile and get the list of arguments required to pass to the device to open up the port.
@@ -160,26 +161,26 @@ The control requests to the device should be made using SOAP requests. SOAP requ
 ```xml
 <?xml version="1.0" ?>
 <s:Envelope s:encodingStyle="http://schemas.xmlsoap.org/soap/encoding/" xmlns:s="http://schemas.xmlsoap.org/soap/envelope/">
-  <s:Body>
-        <u:AddPortMapping xmlns:u="urn:schemas-upnp-org:service:WANIPConnection:1">
-            <NewRemoteHost>0.0.0.0</NewRemoteHost>
-            <NewExternalPort>4000</NewExternalPort>
-            <NewProtocol>TCP</NewProtocol>
-            <NewInternalPort>4000</NewInternalPort>
-            <NewInternalClient>192.168.0.20</NewInternalClient>
-            <NewEnabled>1</NewEnabled>
-            <NewPortMappingDescription>UPnP Port Mapping Exploit</NewPortMappingDescription>
-            <NewLeaseDuration>0</NewLeaseDuration>
-          </u:AddPortMapping>
-        </s:Body>
-      </s:Envelope>
-   ......
+<s:Body>
+<u:AddPortMapping xmlns:u="urn:schemas-upnp-org:service:WANIPConnection:1">
+<NewRemoteHost>0.0.0.0</NewRemoteHost>
+<NewExternalPort>4000</NewExternalPort>
+<NewProtocol>TCP</NewProtocol>
+<NewInternalPort>4000</NewInternalPort>
+<NewInternalClient>192.168.0.20</NewInternalClient>
+<NewEnabled>1</NewEnabled>
+<NewPortMappingDescription>UPnP Port Mapping Exploit</NewPortMappingDescription>
+<NewLeaseDuration>0</NewLeaseDuration>
+</u:AddPortMapping>
+</s:Body>
+</s:Envelope>
+......
 ```
 
 **_This also needs a POST request header_**
 ```json
 {'SOAPAction': '"urn:schemas-upnp-org:service:WANIPConnection:1#AddPortMapping"', 'Content-Type': 'text/xml'}
- ```
+```
 
 The request above responded with a `200 Success` code. I was able to verify the same by sending a request to `get all port mapping entries command` of UPnP `WANIPConnection:1` schema
 
@@ -192,13 +193,13 @@ You can find the complete code I used to perform the exploit in my git hub repos
 ## Securing your Wi-Fi:
 From the research above, Here are some of the things to check for securing your Wi-Fi. You can access your router web interface through your web browser. [Default Router Access](http://www.19216811ip.mobi/default-router-password-list/) Provides the list of default router IP address and the user credentials if you haven't changed it.
 
-1) **Check your DNS settings:** DNS was and is still one of the major target for hackers. Check your DNS settings of the router and your host. 
+1) **Check your DNS settings:** DNS was and is still one of the major targets for hackers. Check your DNS settings of the router and your host. 
 >I was able to find a site which does this for you. [F-Secure Router Checker](https://campaigns.f-secure.com/router-checker/en_global/)
 
 2) **Check for open ports:** Unnecessary open ports on your router allow attackers to enter your network. Following are some of the common ports you might see.
-- `80,443`: A web server - If you are aware of opening a webserver port yourself, its pretty much likely that the open port indicate the web interface of your router. If you have not changed the default credentials of the router and your port is open, it is very likely that you are already hacked. Do switch OFF the remote access feature of your router, if you still need remote access change the password of your router to something stronger. Also port 8080, 8000 are commonly used for web server.
+- `80,443`: A web server - If you are aware of opening a web server port yourself, it's pretty much likely that the open port indicates the web interface of your router. If you have not changed the default credentials of the router and your port is open, it is very likely that you are already hacked. Do switch OFF the remote access feature of your router, if you still need remote access change the password of your router to something stronger. Also port 8080, 8000 are commonly used for a web server.
 - `22- SSH`: It gives remote access to the host the router is forwarding the port to. Or it could be directed to the router itself. Unless you deliberately opened the port, switch off ssh access or disable port forwarding on your router for 22 - 23: Telnet - It's an insecure SSH. Never Use
-- `21 & 20:` It's used for FTP. File transfer, 
+- `21 & 20:` Ports are used for FTP. File transfer, 
 
 >Use any of the port checker tools available online to check. [Open Port Finder](http://www.yougetsignal.com/tools/open-ports/) is one such tool.
 
@@ -219,7 +220,7 @@ From the research above, Here are some of the things to check for securing your 
 
 **WPA/WPA2:**
 
-[PSK  Hacking](http://www.og150.com/assets/Wireless%20Pre-Shared%20Key%20Cracking%20WPA,%20WPA2.pdf)
+[PSK Hacking](http://www.og150.com/assets/Wireless%20Pre-Shared%20Key%20Cracking%20WPA,%20WPA2.pdf)
 
 [Breaking TKIP](http://dl.aircrack-ng.org/breakingwepandwpa.pdf)
 
@@ -243,10 +244,11 @@ From the research above, Here are some of the things to check for securing your 
 
 [Multiple Vulnerabilities in SNMP](http://www.ists.dartmouth.edu/library/9.pdf)
 
-[SANS]: https://www.sans.org/security-resources/idfaq/using-snmp-for-reconnaissance/9/11 "Using SNMP for Reconnaissance"
+[SANS]: https://www.sans.org/security-resources/idfaq/using-snmp-for-reconnaissance/9/11 "Using SNMP for Reconnaissance."
 
 
 **UPnP Protocol:**
+
 [UPnP Intro]: https://dangfan.me/en/posts/upnp-intro "UPnP Working"
 
 [UPnP Device Architecture](http://upnp.org/specs/arch/UPnP-arch-DeviceArchitecture-v1.1.pdf) 
