@@ -205,7 +205,9 @@ From the research above, Here are some of the things to check for securing your 
 5) Always use WPA with strong password
 
 **References:**
+
 **WEP:**
+
 [IEEE Std 802.11-2007](http://standards.ieee.org/getieee802/download/802.11-2007.pdf)
 
 [Security of the WEP algorithm](http://www.isaac.cs.berkeley.edu/isaac/wep-faq.html)
